@@ -2,21 +2,17 @@ import time
 import threading
 import keyboard
 import pymem
-import random
-import string
 import pymem.process
 from PyQt5 import QtCore, QtGui, QtWidgets
 import requests
 from math import *
-###########
-#
-# github.com/Owersite - 2021
-#
-###########
-offsets = 'https://raw.githubusercontent.com/owersite/Python-CSGO-Cheat/main/offsets/offsets.json'
+import ctypes
+import random
+
+offsets = 'https://raw.githubusercontent.com/owersite/Python-CSGO-Cheat/master/offsets/offsets.json'
 response = requests.get( offsets ).json()
 bhop_taste = "space"
-
+m_iCompetitiveWins = int(response["netvars"]["m_iCompetitiveWins"])
 dwEntityList = int( response["signatures"]["dwEntityList"] )
 dwGlowObjectManager = int( response["signatures"]["dwGlowObjectManager"] )
 m_iGlowIndex = int( response["netvars"]["m_iGlowIndex"] )
@@ -49,8 +45,6 @@ dwClientState_PlayerInfo = int( response["signatures"]["dwClientState_PlayerInfo
 dwPlayerResource = int( response["signatures"]["dwPlayerResource"] )
 m_iCompetitiveRanking = int( response["netvars"]["m_iCompetitiveRanking"] )
 eteam = False
-
-
 MAX_LIMIT = 256
  
 randstring = ''
@@ -79,7 +73,23 @@ print(antivacsystem)
 print(antivacsystem2)
 print(randstring, len(randstring))
 print(randstring2, len(randstring2), randstring2)
+user32 = ctypes.windll.user32
 
+def GetWindowText(handle, length=100):
+
+    window_text = ctypes.create_string_buffer(length)
+    user32.GetWindowTextA(
+        handle,
+        ctypes.byref(window_text),
+        length
+    )
+
+    return window_text.value
+
+
+def GetForegroundWindow():
+
+    return user32.GetForegroundWindow()
 
 def calc_distance(current_x, current_y, new_x, new_y):
     distancex = new_x - current_x
@@ -233,19 +243,19 @@ class Ui_MainWindow( object ):
             update = False
         time.sleep( 1 )
 
-    def setupUi(self, OwersiteX):
-        OwersiteX.setObjectName( "OwersiteX" )
-        OwersiteX.resize( 960, 456 )
+    def setupUi(self, ProjectMarya):
+        ProjectMarya.setObjectName( "ProjectMarya" )
+        ProjectMarya.resize( 960, 456 )
         font = QtGui.QFont()
         font.setFamily( "Calibri" )
         font.setPointSize( 20 )
-        OwersiteX.setFont( font )
+        ProjectMarya.setFont( font )
         icon = QtGui.QIcon()
         icon.addPixmap( QtGui.QPixmap( "./pics/bgv7.png" ), QtGui.QIcon.Normal, QtGui.QIcon.Off )
         icon.addPixmap( QtGui.QPixmap( "./pics/bgv7.png" ), QtGui.QIcon.Selected, QtGui.QIcon.On )
-        OwersiteX.setWindowIcon( icon )
-        OwersiteX.setStyleSheet( "background-image:url(./pics/bgv7)" )
-        self.centralwidget = QtWidgets.QWidget( OwersiteX )
+        ProjectMarya.setWindowIcon( icon )
+        ProjectMarya.setStyleSheet( "background-image:url(./pics/bgv7)" )
+        self.centralwidget = QtWidgets.QWidget( ProjectMarya )
         self.centralwidget.setObjectName( "centralwidget" )
         self.checkBox = QtWidgets.QCheckBox( self.centralwidget )
         self.checkBox.setGeometry( QtCore.QRect( 120, 180, 161, 41 ) )
@@ -406,41 +416,41 @@ class Ui_MainWindow( object ):
         self.pushButton_2.setObjectName( "pushButton_2" )
         self.pushButton.clicked.connect( self.update )
         self.pushButton_2.clicked.connect( self.rankreveal )
-        OwersiteX.setCentralWidget( self.centralwidget )
-        self.statusbar = QtWidgets.QStatusBar( OwersiteX )
+        ProjectMarya.setCentralWidget( self.centralwidget )
+        self.statusbar = QtWidgets.QStatusBar( ProjectMarya )
         self.statusbar.setObjectName( "statusbar" )
-        OwersiteX.setStatusBar( self.statusbar )
+        ProjectMarya.setStatusBar( self.statusbar )
 
-        self.retranslateUi( OwersiteX )
-        QtCore.QMetaObject.connectSlotsByName( OwersiteX )
+        self.retranslateUi( ProjectMarya )
+        QtCore.QMetaObject.connectSlotsByName( ProjectMarya )
 
-    def retranslateUi(self, OwersiteX):
+    def retranslateUi(self, ProjectMarya):
         _translate = QtCore.QCoreApplication.translate
-        OwersiteX.setWindowTitle( _translate( "OwersiteX", "OwersiteX" ) )
-        self.checkBox.setText( _translate( "OwersiteX", "Wallhack" ) )
-        self.checkBox_2.setText( _translate( "OwersiteX", "NoFlash" ) )
-        self.checkBox_3.setText( _translate( "OwersiteX", "Radar" ) )
-        self.checkBox_4.setText( _translate( "OwersiteX", "FOV Changer" ) )
-        self.checkBox_5.setText( _translate( "OwersiteX", "Triggerbot" ) )
-        self.checkBox_6.setText( _translate( "OwersiteX", "Aimbot" ) )
-        self.checkBox_7.setText( _translate( "OwersiteX", "Aim for Body" ) )
-        self.lineEdit_2.setText( _translate( "OwersiteX", "e.g c" ) )
-        self.lineEdit_4.setText( _translate( "OwersiteX", "any number" ) )
-        self.lineEdit.setText( _translate( "OwersiteX", "any number" ) )
-        self.label.setText( _translate( "OwersiteX", "FOV Value" ) )
-        self.checkBox_8.setText( _translate( "OwersiteX", "Bunnyhop" ) )
-        self.lineEdit_6.setText( _translate( "OwersiteX", "ctrl" ) )
-        self.label_2.setText( _translate( "OwersiteX", "FOV Toggle Key" ) )
-        self.label_3.setText( _translate( "OwersiteX", "Triggerbot Key" ) )
-        self.label_4.setText( _translate( "OwersiteX", "Aimbot FOV" ) )
-        self.lineEdit_3.setText( _translate( "OwersiteX", "alt" ) )
-        self.label_6.setText( _translate( "OwersiteX", "Aimbot Key" ) )
-        self.pushButton.setText( _translate( "OwersiteX", "UPDATE" ) )
-        self.checkBox_9.setText( _translate( "OwersiteX", "Silentaim" ) )
-        self.checkBox_10.setText( _translate( "OwersiteX", "Recoil Control" ) )
-        self.checkBox_11.setText( _translate( "OwersiteX", "Hold To Change" ) )
-        self.checkBox_12.setText( _translate( "OwersiteX", "RCS with Aimbot" ) )
-        self.pushButton_2.setText( _translate( "OwersiteX", "Rank Reveal" ) )
+        ProjectMarya.setWindowTitle( _translate( "ProjectMarya", "ProjectX" ) )
+        self.checkBox.setText( _translate( "ProjectMarya", "Wallhack" ) )
+        self.checkBox_2.setText( _translate( "ProjectMarya", "NoFlash" ) )
+        self.checkBox_3.setText( _translate( "ProjectMarya", "Radar" ) )
+        self.checkBox_4.setText( _translate( "ProjectMarya", "FOV Changer" ) )
+        self.checkBox_5.setText( _translate( "ProjectMarya", "Triggerbot" ) )
+        self.checkBox_6.setText( _translate( "ProjectMarya", "Aimbot" ) )
+        self.checkBox_7.setText( _translate( "ProjectMarya", "Aim for Body" ) )
+        self.lineEdit_2.setText( _translate( "ProjectMarya", "e.g c" ) )
+        self.lineEdit_4.setText( _translate( "ProjectMarya", "any number" ) )
+        self.lineEdit.setText( _translate( "ProjectMarya", "any number" ) )
+        self.label.setText( _translate( "ProjectMarya", "FOV Value" ) )
+        self.checkBox_8.setText( _translate( "ProjectMarya", "Bunnyhop" ) )
+        self.lineEdit_6.setText( _translate( "ProjectMarya", "e.g alt" ) )
+        self.label_2.setText( _translate( "ProjectMarya", "FOV Toggle Key" ) )
+        self.label_3.setText( _translate( "ProjectMarya", "Triggerbot Key" ) )
+        self.label_4.setText( _translate( "ProjectMarya", "Aimbot FOV" ) )
+        self.lineEdit_3.setText( _translate( "ProjectMarya", "e.g shift" ) )
+        self.label_6.setText( _translate( "ProjectMarya", "Aimbot Key" ) )
+        self.pushButton.setText( _translate( "ProjectMarya", "UPDATE" ) )
+        self.checkBox_9.setText( _translate( "ProjectMarya", "Silentaim" ) )
+        self.checkBox_10.setText( _translate( "ProjectMarya", "Recoil Control" ) )
+        self.checkBox_11.setText( _translate( "ProjectMarya", "Hold To Change" ) )
+        self.checkBox_12.setText( _translate( "ProjectMarya", "RCS with Aimbot" ) )
+        self.pushButton_2.setText( _translate( "ProjectMarya", "Rank Reveal" ) )
 
     def main(self):
 
@@ -452,7 +462,10 @@ class Ui_MainWindow( object ):
         oldpunchx = 0.0
         oldpunchy = 0.0
         while True:
-            
+
+            if not GetWindowText(GetForegroundWindow()).decode('cp1252') == "Counter-Strike: Global Offensive":
+                time.sleep(1)
+                continue
 
             pm.write_uchar( engine + dwbSendPackets, 1 )
             target = None
@@ -473,7 +486,7 @@ class Ui_MainWindow( object ):
                     time.sleep( 5 )
                     continue
 
-            for i in range( 1, 32 ):
+            for i in range( 1, 64 ):
                 entity = pm.read_int( client + dwEntityList + i * 0x10 )
 
                 if entity:
@@ -591,10 +604,10 @@ class Ui_MainWindow( object ):
 
                     else:
                         pass
-                        #pm.write_int( glow_manager + entity_glow * 0x38 + 0x24, 0 )
+
 
             if self.trigc and keyboard.is_pressed(
-                    self.triggerkey ) and 0 < crosshairID < 32 and localTeam != crosshairTeam and immunitygunganme == 256:
+                    self.triggerkey ) and 0 < crosshairID <= 64 and localTeam != crosshairTeam:
                 pm.write_int( client + dwForceAttack, 6 )
 
             if self.nf and player:
@@ -653,53 +666,44 @@ class Ui_MainWindow( object ):
         client = pymem.process.module_from_name( pm.process_handle, "client.dll" )
         engine = pymem.process.module_from_name( pm.process_handle, "engine.dll" )
         ranks = ["Unranked",
-                 "Silver I",
-                 "Silver II",
-                 "Silver III",
-                 "Silver IV",
-                 "Silver Elite",
-                 "Silver Elite Master",
-                 "Gold Nova I",
-                 "Gold Nova II",
-                 "Gold Nova III",
-                 "Gold Nova Master",
-                 "Master Guardian I",
-                 "Master Guardian II",
-                 "Master Guardian Elite",
-                 "Distinguished Master Guardian",
-                 "Legendary Eagle",
-                 "Legendary Eagle Master",
-                 "Supreme Master First Class",
-                 "The Global Elite"]
-        for i in range( 1, 32 ):
+                    "Silver I",
+                     "Silver II",
+                     "Silver III",
+                     "Silver IV",
+                     "Silver Elite",
+                     "Silver Elite Master",
+                     "Gold Nova I",
+                     "Gold Nova II",
+                     "Gold Nova III",
+                     "Gold Nova Master",
+                     "Master Guardian I",
+                     "Master Guardian II",
+                     "Master Guardian Elite",
+                     "Distinguished Master Guardian",
+                     "Legendary Eagle",
+                     "Legendary Eagle Master",
+                     "Supreme Master First Class",
+                     "The Global Elite"]
+        for i in range( 0, 32 ):
             entity = pm.read_int( client.lpBaseOfDll + dwEntityList + i * 0x10 )
 
             if entity:
                 entity_team_id = pm.read_int( entity + m_iTeamNum )
-                entity_i = pm.read_int( client.lpBaseOfDll + dwLocalPlayer )
-                if entity_team_id != pm.read_int( entity_i + m_iTeamNum ):
+                if entity_team_id :
                     player_info = pm.read_int(
-                        (pm.read_int( engine.lpBaseOfDll + dwClientState )) + dwClientState_PlayerInfo )
+                            (pm.read_int( engine.lpBaseOfDll + dwClientState )) + dwClientState_PlayerInfo )
                     player_info_items = pm.read_int( pm.read_int( player_info + 0x40 ) + 0xC )
                     info = pm.read_int( player_info_items + 0x28 + (i * 0x34) )
                     playerres = pm.read_int( client.lpBaseOfDll + dwPlayerResource )
-                    rank = pm.read_int( playerres + m_iCompetitiveRanking + i * 4 )
-
+                    rank = pm.read_int( playerres + m_iCompetitiveRanking + (i * 4 ))
+                    wins = pm.read_int(playerres + m_iCompetitiveWins + i * 4)
                     if pm.read_string( info + 0x10 ) != 'GOTV':
+                        print(rank)
                         print( pm.read_string( info + 0x10 ) + "   -->   " + ranks[rank] )
-                      
-                      
-print(randstring, len(randstring) / 2)
-print(antivacsystem3)
-print(antivacsystem)
-print(randstring2, len(randstring) *10)
+                        print(wins)
+
 print(antivacsystem2)
-print(randstring2)
-
-print(' ')
-print(' ')
-print(' ')
-
+print(antivacsystem)
 
 if __name__ == "__main__":
     import sys
