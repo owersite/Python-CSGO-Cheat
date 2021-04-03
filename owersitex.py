@@ -45,34 +45,10 @@ dwClientState_PlayerInfo = int( response["signatures"]["dwClientState_PlayerInfo
 dwPlayerResource = int( response["signatures"]["dwPlayerResource"] )
 m_iCompetitiveRanking = int( response["netvars"]["m_iCompetitiveRanking"] )
 eteam = False
-MAX_LIMIT = 256
- 
-randstring = ''
 
-for _ in range(random.randint(1,90)):
-    random_integer = random.randint(25, MAX_LIMIT)
-    # Keep appending random characters using chr(x)
-    randstring += (chr(random_integer))
-    
-randstring2 = ''
-for _ in range(random.randint(90, 390)):
-    random_integer = random.randint(25, MAX_LIMIT)
-    # Keep appending random characters using chr(x)
-    randstring2 += (chr(random_integer))
+filehashstring = "a3aHViF3Z97KW7Jnh9Mzgsa4"
+print(filehashstring)
 
-print(len(randstring2), randstring)
-
-
-antivacsystem = random.randint(1,999999)
-print(antivacsystem)
-antivacsystem2 = random.randint(1,999999)
-print(antivacsystem2)
-antivacsystem3 = random.randint(1,999999)
-
-print(antivacsystem)
-print(antivacsystem2)
-print(randstring, len(randstring))
-print(randstring2, len(randstring2), randstring2)
 user32 = ctypes.windll.user32
 
 def GetWindowText(handle, length=100):
